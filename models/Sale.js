@@ -1,4 +1,3 @@
-    // backend/models/Sale.js
     const mongoose = require('mongoose');
 
     const saleSchema = mongoose.Schema(
@@ -34,7 +33,7 @@
         },
         bannerTextColor: {
           type: String,
-          default: 'text-white',
+          default: 'text-green',
         },
         tagBgColor: {
           type: String,
@@ -42,7 +41,7 @@
         },
         tagTextColor: {
           type: String,
-          default: 'text-white',
+          default: 'text-green',
         },
         isActive: {
           type: Boolean,
