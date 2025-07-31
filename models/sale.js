@@ -64,4 +64,3 @@
     const Sale = mongoose.model('Sale', saleSchema);
 
     module.exports = Sale;
-    git init
