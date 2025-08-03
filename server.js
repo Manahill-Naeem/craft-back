@@ -41,7 +41,6 @@
 
 
 
-
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
@@ -95,8 +94,9 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// `process.env.PORT` ko Railway se len, agar available na ho to 8000 use karein
-const PORT = process.env.PORT || 8000;
+// `PORT` variable ko hardcode karein Railway ke default port `8080` par.
+// `3001` ko Railway ke dashboard se delete kar dein.
+const PORT = 8080;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     // Connect to DB *after* the server has started
