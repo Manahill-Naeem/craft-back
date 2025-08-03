@@ -42,8 +42,6 @@
 
 
 
-
-
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
@@ -74,7 +72,6 @@ const connectDB = async () => {
     console.log('MongoDB Connected successfully!');
   } catch (error) {
     console.error('MongoDB connection failed:', error.message);
-    // Server will not exit here, allowing it to start even without DB
   }
 };
 
@@ -98,6 +95,7 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
+// Use process.env.PORT to make sure Railway detects the correct port
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
