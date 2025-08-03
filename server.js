@@ -41,7 +41,6 @@
 
 
 
-
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
@@ -96,7 +95,8 @@ app.use((req, res, next) => {
 });
 
 // Use process.env.PORT to make sure Railway detects the correct port
-const PORT = process.env.PORT || 8000;
+// Let's remove the fallback port to ensure it reads the environment variable
+const PORT = process.env.PORT; // Railway must read this as 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     // Connect to DB *after* the server has started
