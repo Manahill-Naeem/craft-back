@@ -44,7 +44,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const cors = require('cors'); // cors import karein
+const cors = require('cors');
 const path = require('path');
 
 // Route imports
@@ -60,11 +60,10 @@ dotenv.config();
 const app = express();
 
 // Middleware
-// CORS ko specifically Vercel frontend URL ke liye configure karein
 const corsOptions = {
   // Yahan aapke Vercel frontend project ka URL aayega
   origin: 'https://craft-website-4593em6h-manahill-naeems-projects.vercel.app',
-  optionsSuccessStatus: 200 // For legacy browsers
+  optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -72,10 +71,13 @@ app.use(express.json());
 // Database connection
 const connectDB = async () => {
   try {
+    // `mongoose.connect` ko await karein
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB Connected successfully!');
   } catch (error) {
     console.error('MongoDB connection failed:', error.message);
+    // Masla hal na hone ki soorat mein process ko exit kar dein
+    process.exit(1); 
   }
 };
 
@@ -104,10 +106,12 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// `PORT` variable ko `8080` par hardcode karein.
+// `PORT` variable ko `8080` par hardcode karein
 const PORT = 8080;
-app.listen(PORT, () => {
+
+// Connect to DB *phir* server ko start karein
+connectDB().then(() => {
+  app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    // Connect to DB *after* the server has started
-    connectDB();
+  });
 });
