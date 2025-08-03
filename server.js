@@ -39,7 +39,6 @@
 
 
 
-
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
@@ -71,13 +70,11 @@ app.use(express.json());
 // Database connection
 const connectDB = async () => {
   try {
-    // `mongoose.connect` ko await karein
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB Connected successfully!');
   } catch (error) {
     console.error('MongoDB connection failed:', error.message);
-    // Masla hal na hone ki soorat mein process ko exit kar dein
-    process.exit(1); 
+    process.exit(1);
   }
 };
 
@@ -106,10 +103,10 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// `PORT` variable ko `8080` par hardcode karein
-const PORT = 8080;
+// Final aur sahi PORT configuration
+// Railway ka environment variable use karein ya default 8080
+const PORT = process.env.PORT || 8080;
 
-// Connect to DB *phir* server ko start karein
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
