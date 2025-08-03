@@ -76,8 +76,7 @@ const connectDB = async () => {
 // Serve static images from the 'public/images' directory
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
-// NEW: Root route
-// Is route ko add karein taake frontend se aane wali requests theek se handle ho sakein.
+// Root route
 app.get('/', (req, res) => {
   res.send('Backend Server is Running!');
 });
@@ -99,8 +98,9 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// `PORT` variable ko hardcode karein Railway ke default port `8080` par.
-const PORT = 8080;
+// `PORT` variable ko Railway ke environment variable `process.env.PORT` se set karein.
+// Agar woh nahi milta, to default `8080` use karein.
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     // Connect to DB *after* the server has started
