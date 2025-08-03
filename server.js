@@ -40,7 +40,6 @@
 
 
 
-
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
@@ -77,6 +76,12 @@ const connectDB = async () => {
 // Serve static images from the 'public/images' directory
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
+// NEW: Root route
+// Is route ko add karein taake frontend se aane wali requests theek se handle ho sakein.
+app.get('/', (req, res) => {
+  res.send('Backend Server is Running!');
+});
+
 // API Routes
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
@@ -95,7 +100,6 @@ app.use((req, res, next) => {
 });
 
 // `PORT` variable ko hardcode karein Railway ke default port `8080` par.
-// `3001` ko Railway ke dashboard se delete kar dein.
 const PORT = 8080;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
