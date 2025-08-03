@@ -33,8 +33,6 @@
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
-
-
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
@@ -57,10 +55,9 @@ app.use(express.json()); // Body parser
 // Serve static images
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
-// NEW: Test Route
-// Is route ko check karein. Agar yeh kaam karta hai, toh server theek chal raha hai.
-app.get('/api/test', (req, res) => {
-  res.status(200).json({ message: "Server is running correctly!" });
+// NEW: Simple Test Route to confirm server is working
+app.get('/api/hello', (req, res) => {
+  res.status(200).json({ message: "Hello from the backend!" });
 });
 
 // API Routes
@@ -69,8 +66,6 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes); 
 app.use('/api/email', emailRoutes);
 app.use('/api/sales', saleRoutes); 
-
-// ... (other routes or error handling)
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
