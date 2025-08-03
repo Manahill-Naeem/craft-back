@@ -38,12 +38,11 @@
 
 
 
-
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const cors = require('cors');
+const cors = require('cors'); // cors import karein
 const path = require('path');
 
 // Route imports
@@ -59,7 +58,13 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+// CORS ko specifically Vercel frontend URL ke liye configure karein
+const corsOptions = {
+  // Yahan aapke Vercel frontend project ka URL aayega
+  origin: 'https://craft-website-4593em.jjects.vercel.app',
+  optionsSuccessStatus: 200 // For legacy browsers
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Database connection
@@ -73,7 +78,6 @@ const connectDB = async () => {
 };
 
 // Serve static images from the 'public/images' directory
-// Isko middleware ke taur par pehle use karein.
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 // Root route
@@ -98,9 +102,8 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// `PORT` variable ko Railway ke environment variable `process.env.PORT` se set karein.
-// Agar woh nahi milta, to default `8080` use karein.
-const PORT = process.env.PORT || 8080;
+// `PORT` variable ko `8080` par hardcode karein.
+const PORT = 8080;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     // Connect to DB *after* the server has started
