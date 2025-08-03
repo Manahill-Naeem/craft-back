@@ -74,10 +74,9 @@ const connectDB = async () => {
     console.log('MongoDB Connected successfully!');
   } catch (error) {
     console.error('MongoDB connection failed:', error.message);
-    process.exit(1); // Exit with failure
+    // Server will not exit here, allowing it to start even without DB
   }
 };
-connectDB();
 
 // Serve static images from the 'public/images' directory
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
@@ -100,4 +99,8 @@ app.use((req, res, next) => {
 });
 
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    // Connect to DB *after* the server has started
+    connectDB();
+});
