@@ -41,6 +41,7 @@
 
 
 
+
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
@@ -94,9 +95,8 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// Use process.env.PORT to make sure Railway detects the correct port
-// Let's remove the fallback port to ensure it reads the environment variable
-const PORT = process.env.PORT; // Railway must read this as 3001
+// `process.env.PORT` ko Railway se len, agar available na ho to 8000 use karein
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     // Connect to DB *after* the server has started
