@@ -29,9 +29,8 @@
 
 // // ... (other routes or error handling)
 
-// const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT || 8080;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 
 
 
@@ -74,6 +73,7 @@ const connectDB = async () => {
 };
 
 // Serve static images from the 'public/images' directory
+// Isko middleware ke taur par pehle use karein.
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 // Root route
