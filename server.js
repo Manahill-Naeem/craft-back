@@ -37,8 +37,6 @@
 
 
 
-
-
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
@@ -60,8 +58,8 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-  // Yahan aapke Vercel frontend project ka URL aayega
-  origin: 'https://craft-website-4593em6h-manahill-naeems-projects.vercel.app',
+  // Yahan aapke naye Vercel frontend project ka URL aayega
+  origin: 'https://craftedwhispers.vercel.app',
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
@@ -104,7 +102,6 @@ app.use((req, res, next) => {
 });
 
 // Final aur sahi PORT configuration
-// Railway ka environment variable use karein ya default 8080
 const PORT = process.env.PORT || 8080;
 
 connectDB().then(() => {
