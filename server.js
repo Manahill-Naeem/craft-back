@@ -38,6 +38,8 @@
 
 
 
+
+
 // backend/server.js
 const express = require('express');
 const dotenv = require('dotenv');
@@ -61,7 +63,7 @@ const app = express();
 // CORS ko specifically Vercel frontend URL ke liye configure karein
 const corsOptions = {
   // Yahan aapke Vercel frontend project ka URL aayega
-  origin: 'https://craft-website-4593em.jjects.vercel.app',
+  origin: 'https://craft-website-4593em6h-manahill-naeems-projects.vercel.app',
   optionsSuccessStatus: 200 // For legacy browsers
 };
 app.use(cors(corsOptions));
